@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * A simple linked implementation of stacks.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Keely Miyamoto
  */
 public class LinkedStack<T> implements Stack<T> {
   // +--------+----------------------------------------------------------
@@ -33,6 +33,15 @@ public class LinkedStack<T> implements Stack<T> {
   // +-------------------------+-----------------------------------------
   // | LinearStructure Methods |
   // +-------------------------+
+
+  /**
+   * Exercise 5: Exploring linked stacks
+   * 
+   * I missed that 'isFull()' would uniformly return false. I now recall from 
+   * the reading that this is because either the stack does not fill, or, if
+   * it does, we will not have space to create even an exception object. 
+   *  
+   */
 
   @Override
   public boolean isEmpty() {

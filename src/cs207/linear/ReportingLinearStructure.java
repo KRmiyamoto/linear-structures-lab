@@ -7,6 +7,20 @@ import java.util.Iterator;
  * LinearStructures that report on the operations they perform.
  *
  * @author Samuel A. Rebelsky
+ * @author Keely Miyamoto
+ * 
+ * Exercise 2: A wrapper class
+ * The ReportingLinearStructure class is constituted by a linear structure 'ls',
+ * a PrintWriter 'pen', and String that represents the "name" of the LinearStructure
+ * that the ReportingLinearStructure is documenting. Essentially, this class 
+ * Overwrites the methods of the LinearStructure interfaces so as to not only
+ * perform the given methods on 'ls', but to write the resulting output of each 
+ * step to the terminal using 'pen'.
+ *  1. We can Override the methods of an interface to add features, such as printing.
+ *  2. A wrapper class allows us to print output that summarizes the processes in a 
+ *     multi-step procedure. (e.g., 'clear' will call get() repeatedly...)
+ *  3. We can also add methods (e.g., 'info') to have more ways to output the current
+ *     state of some object.
  */
 public class ReportingLinearStructure<T> implements LinearStructure<T> {
   // +--------+----------------------------------------------------------

@@ -40,6 +40,9 @@ public class LinkedQueue<T> implements Queue<T> {
   // | LinearStructure Methods |
   // +-------------------------+
 
+  /**
+   * Exercise 6: Getting started with linked queues
+   */
   @Override
   public boolean isEmpty() {
     return this.front == null;
@@ -52,12 +55,21 @@ public class LinkedQueue<T> implements Queue<T> {
 
   @Override
   public T peek() throws Exception {
-    return this.front.value;
+    return this.back.value;
   } // peek()
 
   @Override
   public void put(T val) throws Exception {
-    throw new Exception("Unimplemented");
+    if (this.isFull()) {
+      throw new Exception("full");
+    }
+    if (this.isEmpty()) {
+      this.back = new Node<T>(val, null);
+      this.front = this.back;
+    } else {
+      this.back.next = new Node<T>(val, null);
+      this.back = this.back.next;
+    }
   } // put(T)
 
   @Override
@@ -65,7 +77,9 @@ public class LinkedQueue<T> implements Queue<T> {
     if (this.isEmpty()) {
       throw new Exception("cannot get values from the empty queue");
     } // if empty
-    throw new Exception("Unimplemented");
+    T result = this.front.value;
+    this.front = this.front.next;
+    return result; 
   } // get()
 
   @Override
