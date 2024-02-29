@@ -78,7 +78,8 @@ public class ArrayBasedQueue<T> implements Queue<T> {
     } // if empty
     // Grab and clear the element at the front of the queue
     T result = this.values[this.front];
-    this.values[this.front++] = null;
+    this.values[this.front] = null;
+    this.front = (this.front + 1) % this.values.length;
     // We're removing an element, so decrement the size
     --this.size;
     // And we're done
@@ -116,7 +117,7 @@ public class ArrayBasedQueue<T> implements Queue<T> {
    * Get the index of the back of the queue. The back is where we add the next element.
    */
   int back() {
-    return this.size;
+    return (this.front + this.size) % this.values.length;
   } // back()
 
 } // class ArrayBasedQueue<T>
@@ -127,6 +128,21 @@ class ArrayBasedQueueIterator<T> implements Iterator<T> {
   // | Fields |
   // +--------+
 
+  /**
+   * The current position in the iteration.
+   */
+  int i;
+
+  /**
+   * The current position in the iteration.
+   */
+  int back;
+
+  /**
+   * The array that contains the values in the stack.
+   */
+  T[] values;
+
   // +--------------+----------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -135,7 +151,9 @@ class ArrayBasedQueueIterator<T> implements Iterator<T> {
    * Create a new iterator.
    */
   public ArrayBasedQueueIterator(ArrayBasedQueue<T> q) {
-    // STUB
+    this.i = q.front;
+    this.back = q.back();
+    this.values = (T[]) this.values;
   } // ArrayBasedQueueIterator
 
   // +---------+---------------------------------------------------------
@@ -147,14 +165,18 @@ class ArrayBasedQueueIterator<T> implements Iterator<T> {
     if (!this.hasNext()) {
       throw new NoSuchElementException("no elements remain");
     } // if no elements
-    // STUB
-    throw new NoSuchElementException("unimplemented");
+    if ((0 < i) && (i < this.values.length - 1)) {
+      return this.values[i++];
+    } else {
+      T ret = this.values[i];
+      i = 0;
+      return ret;
+    }
   } // next()
 
   @Override
   public boolean hasNext() {
-    // STUB
-    return false;
+    return (i != this.back);
   } // hasNext()
 
   @Override
